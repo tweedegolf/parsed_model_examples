@@ -3,6 +3,7 @@ import EventEmitter from 'events';
 import ActionTypes from '../constants';
 import AppDispatcher from '../app_dispatcher';
 import Globals from '../globals';
+import ParsedModel from '../parsed_model';
 
 let CHANGE_EVENT = 'change';
 
@@ -15,6 +16,13 @@ class SettingsStore extends EventEmitter {
     this.worldRotation = Globals.WORLD_ROTATION;
     this.cameraPosition = new THREE.Vector3(0, 300, 500);
     this.cameraQuaternion = new THREE.Quaternion();
+    this.parsedModel = new ParsedModel();
+    this.parsedModel.load('bbq.json').then(
+      //resolve
+      () =>{
+        this.emitChange();
+      }
+    );
 
     AppDispatcher.register((action) => {
       this.handle(action);
@@ -36,6 +44,7 @@ class SettingsStore extends EventEmitter {
   getSettings() {
 
     let settings = {
+      parsedModel: this.parsedModel,
       worldRotation: this.worldRotation,
       cameraPosition: this.cameraPosition,
       cameraQuaternion: this.cameraQuaternion

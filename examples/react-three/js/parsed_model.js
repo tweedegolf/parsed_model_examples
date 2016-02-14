@@ -8,7 +8,7 @@ export default class ParsedModel{
     this._colladaLoader = new THREE.ColladaLoader();
     this._objectLoader = new THREE.ObjectLoader();
     this._parseSettings(settings || {});
-    if(typeof model !== 'undefined'){
+    if(typeof model !== 'undefined' && model !== null){
       this._parse(model);
     }
   }

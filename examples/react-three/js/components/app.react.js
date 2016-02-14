@@ -3,6 +3,7 @@ import React from 'react';
 import SettingsStore from '../stores/settings_store';
 import Scene3D from './three/scene.react';
 import World from './three/world.react';
+import Model from './three/model.react';
 import Stats from './stats.react';
 
 /* main react component, the only component with state */
@@ -33,7 +34,6 @@ class App extends React.Component{
   }
 
   render(){
-    console.log(this.state);
     return(
       <div>
         <Scene3D
@@ -45,6 +45,11 @@ class App extends React.Component{
             worldRotation={this.state.worldRotation}
           >
           </World>
+          <Model
+            key={THREE.Math.generateUUID()}
+            position={new THREE.Vector3(0, 0, 0)}
+            parsedModel={this.state.parsedModel}
+          />
         </Scene3D>
         <Stats />
       </div>
@@ -52,6 +57,6 @@ class App extends React.Component{
   }
 }
 
-App.propTypes = {};
+//App.propTypes = {};
 
 export default App;
