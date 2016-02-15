@@ -16,8 +16,9 @@ class SettingsStore extends EventEmitter {
     this.worldRotation = Globals.WORLD_ROTATION;
     this.cameraPosition = new THREE.Vector3(0, 300, 500);
     this.cameraQuaternion = new THREE.Quaternion();
+    this.mergeGeometries = false;
     this.parsedModel = new ParsedModel();
-    this.parsedModel.load('bbq.json').then(
+    this.parsedModel.load('bbq.json', {scale: 0.6}).then(
       //resolve
       () =>{
         this.emitChange();
@@ -44,6 +45,7 @@ class SettingsStore extends EventEmitter {
   getSettings() {
 
     let settings = {
+      mergeGeometries: this.mergeGeometries,
       parsedModel: this.parsedModel,
       worldRotation: this.worldRotation,
       cameraPosition: this.cameraPosition,

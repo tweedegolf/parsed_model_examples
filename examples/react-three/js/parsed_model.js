@@ -15,10 +15,9 @@ export default class ParsedModel{
 
   _parseSettings(settings){
     this.quaternion = settings.quaternion || new THREE.Quaternion();
-    this.scale = settings.scale || new THREE.Vector3(1, 1, 1);
-    if(typeof this.scale === 'number'){
-      let s = this.scale;
-      this.scale = new THREE.Vector3(s, s, s);
+    this.scale = settings.scale;
+    if(typeof this.scale !== 'number'){
+      this.scale = 1;
     }
   }
 
@@ -28,16 +27,16 @@ export default class ParsedModel{
     this.geometries = new Map();
     this.materialIndices = new Map();
     this.materialsArray = [];
-    this.merge = true;
 
     // adjust the rotation of the model according to the rotation of the world
     this.model.quaternion.copy(this.quaternion);
-    this.model.scale.copy(this.scale);
     this.model.updateMatrix();
 
     let index = 0;
     this.model.traverse((child) => {
       if(child instanceof THREE.Mesh){
+        // set initial scale of model by scaling its geometries
+        child.geometry.scale(this.scale, this.scale, this.scale);
         // create an array of the use materials
         let uuid = child.material.uuid;
         this.materialIndices.set(uuid, index++);

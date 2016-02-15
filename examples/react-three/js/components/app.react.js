@@ -49,6 +49,7 @@ class App extends React.Component{
             key={THREE.Math.generateUUID()}
             position={new THREE.Vector3(0, 0, 0)}
             parsedModel={this.state.parsedModel}
+            mergeGeometries={this.state.mergeGeometries}
           />
         </Scene3D>
         <Stats />

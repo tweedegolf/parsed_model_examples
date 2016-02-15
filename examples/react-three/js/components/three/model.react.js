@@ -1,6 +1,8 @@
 import THREE from 'three';
 import React from 'react';
 import ReactTHREE from 'react-three';
+import ParsedModel from '../../parsed_model';
+
 
 let Mesh = ReactTHREE.Mesh;
 let Object3D = ReactTHREE.Object3D;
@@ -30,7 +32,7 @@ class Model3D extends React.Component {
     }
 
     // render model with merged geometries
-    if(this.props.parsedModel.merge){
+    if(this.props.mergeGeometries === true){
       let geometry = this.props.parsedModel.mergedGeometry;
       let material = this.props.parsedModel.material;
       return(
@@ -66,8 +68,8 @@ class Model3D extends React.Component {
     return (
       <Object3D
         key={THREE.Math.generateUUID()}
-        quaternion={this.props.parsedModel.quaternion}
         position={this.props.position}
+        quaternion={this.props.parsedModel.quaternion}
         scale={this.props.scale}
       >
         {children}
@@ -78,7 +80,8 @@ class Model3D extends React.Component {
 
 
 Model3D.propTypes = {
-  model: React.PropTypes.object,
+  parsedModel: React.PropTypes.instanceOf(ParsedModel),
+  mergeGeometries: React.PropTypes.bool,
   position: React.PropTypes.instanceOf(THREE.Vector3),
   quaternion: React.PropTypes.instanceOf(THREE.Quaternion),
   scale: React.PropTypes.number
