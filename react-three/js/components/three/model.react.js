@@ -1,7 +1,7 @@
 import THREE from 'three';
 import React from 'react';
 import ReactTHREE from 'react-three';
-import ParsedModel from '../../parsed_model';
+import ParsedModel from '../../../lib/parsed_model';
 
 
 let Mesh = ReactTHREE.Mesh;

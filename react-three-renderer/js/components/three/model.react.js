@@ -1,6 +1,7 @@
 import THREE from 'three';
 import React from 'react';
-import {ParsedModel, createMaterial} from '../../parsed_model';
+import ParsedModel from '../../../lib/parsed_model';
+import createMaterial from '../../../lib/create_material';
 
 
 class Model3D extends React.Component {

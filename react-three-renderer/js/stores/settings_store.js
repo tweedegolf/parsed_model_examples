@@ -3,7 +3,7 @@ import EventEmitter from 'events';
 import ActionTypes from '../constants';
 import AppDispatcher from '../app_dispatcher';
 import Globals from '../globals';
-import {ParsedModel} from '../parsed_model';
+import ParsedModel from '../../lib/parsed_model';
 
 let CHANGE_EVENT = 'change';
 
