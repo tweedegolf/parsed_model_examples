@@ -5,8 +5,8 @@ import React3 from 'react-three-renderer';
 import SettingsAction from '../../actions/settings_action';
 import OrbitControls from '../../../lib/OrbitControls';
 
-/* scene graph */
 
+/* scene graph */
 class SceneComponent extends React.Component {
 
   static displayName = 'Scene3D';

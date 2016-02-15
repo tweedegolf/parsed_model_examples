@@ -1,7 +1,6 @@
 import THREE from 'three';
 import React from 'react';
-import ParsedModel from '../../parsed_model';
-import createMaterial from '../../create_material';
+import {ParsedModel, createMaterial} from '../../parsed_model';
 
 
 class Model3D extends React.Component {
@@ -48,8 +47,8 @@ class Model3D extends React.Component {
     geometries.forEach((geometry, uuid) => {
       // get the right material for this geometry using the material index
       let material = materialsArray[materialIndices.get(uuid)];
+      // create a react-three-renderer material component
       material = createMaterial(material);
-      console.log(material);
 
       meshes.push(
         <mesh

@@ -3,7 +3,7 @@ import EventEmitter from 'events';
 import ActionTypes from '../constants';
 import AppDispatcher from '../app_dispatcher';
 import Globals from '../globals';
-import ParsedModel from '../parsed_model';
+import {ParsedModel} from '../parsed_model';
 
 let CHANGE_EVENT = 'change';
 
@@ -26,7 +26,7 @@ class SettingsStore extends EventEmitter {
           this.emitChange();
         }
       );
-    }, 5000);
+    }, 3000);
 
     AppDispatcher.register((action) => {
       this.handle(action);

@@ -3,7 +3,7 @@ import EventEmitter from 'events';
 import ActionTypes from '../constants';
 import AppDispatcher from '../app_dispatcher';
 import Globals from '../globals';
-import ParsedModel from '../parsed_model';
+import {ParsedModel} from '../parsed_model';
 
 let CHANGE_EVENT = 'change';
 
@@ -18,12 +18,15 @@ class SettingsStore extends EventEmitter {
     this.cameraQuaternion = new THREE.Quaternion();
     this.mergeGeometries = false;
     this.parsedModel = new ParsedModel();
-    this.parsedModel.load('bbq.json', {scale: 0.6}).then(
-      //resolve
-      () =>{
-        this.emitChange();
-      }
-    );
+    // add a bit delay so you can see what is happening
+    setTimeout(() => {
+      this.parsedModel.load('bbq.json', {scale: 0.6}).then(
+        //resolve
+        () =>{
+          this.emitChange();
+        }
+      );
+    }, 3000);
 
     AppDispatcher.register((action) => {
       this.handle(action);
