@@ -21,10 +21,11 @@
   "dependencies": {
     "babel-polyfill": "^6.5.0",
     "flux": "^2.1.1",
+    "flux-standard-action": "^0.6.1",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
-    "three": "^0.72.0",
-    "react-three": "^0.7.3"
+    "react-three": "^0.7.3",
+    "three": "^0.72.0"
   },
   "scripts": {
     "start": "ws",

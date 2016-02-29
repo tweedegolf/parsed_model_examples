@@ -22,10 +22,6 @@ class SceneComponent extends React.Component {
     this._orbitControlsHandler = this._onControllerChange.bind(this);
   }
 
-  shouldComponentUpdate(nextProps, nextState){
-    return !nextProps.sliderBusy;
-  }
-
   componentWillReceiveProps(){
   }
 

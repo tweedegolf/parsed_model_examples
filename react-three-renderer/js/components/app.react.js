@@ -37,6 +37,7 @@ class App extends React.Component{
     return(
       <div>
         <Scene3D
+          forceManualRender={false}
           cameraPosition={this.state.cameraPosition}
           cameraQuaternion={this.state.cameraQuaternion}
         >

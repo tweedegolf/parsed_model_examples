@@ -4,6 +4,7 @@ import ActionTypes from '../constants';
 import AppDispatcher from '../app_dispatcher';
 import Globals from '../globals';
 import ParsedModel from '../../lib/parsed_model';
+import {isFSA} from 'flux-standard-action';
 
 let CHANGE_EVENT = 'change';
 
@@ -58,11 +59,16 @@ class SettingsStore extends EventEmitter {
   }
 
   handle(action) {
+
+    if(isFSA(action) === false){
+      console.error('action not FSA compliant');
+    }
+
     switch(action.type) {
 
       case ActionTypes.UPDATE_CAMERA:
-        this.cameraPosition = action.position;
-        this.cameraQuaternion = action.quaternion;
+        this.cameraPosition = action.payload.position;
+        this.cameraQuaternion = action.payload.quaternion;
         this.emitChange();
         break;
 

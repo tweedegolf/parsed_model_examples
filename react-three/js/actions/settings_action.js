@@ -6,15 +6,19 @@ export default {
   updateModel(e){
     AppDispatcher.dispatch({
       type: ActionTypes.UPDATE_MODEL,
-      model: e.model
+      payload: {
+        model: e.model
+      }
     });
   },
 
   updateCamera(e){
     AppDispatcher.dispatch({
       type: ActionTypes.UPDATE_CAMERA,
-      position: e.position,
-      quaternion: e.quaternion
+      payload: {
+        position: e.position,
+        quaternion: e.quaternion
+      }
     });
   }
 };

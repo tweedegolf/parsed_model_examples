@@ -14,10 +14,11 @@ class SceneComponent extends React.Component {
   constructor(props) {
     super(props);
     this._orbitControlsHandler = this._onControllerChange.bind(this);
-  }
-
-  shouldComponentUpdate(nextProps, nextState){
-    return !nextProps.sliderBusy;
+    this._mouseUpListener = this._onMouseUp.bind(this);
+    this._renderTrigger = function(){};
+    this._onManualRenderTriggerCreated = (renderTrigger) => {
+      this._renderTrigger = renderTrigger;
+    };
   }
 
   componentWillReceiveProps(){
@@ -26,12 +27,21 @@ class SceneComponent extends React.Component {
   componentDidMount(){
     this._canvas = ReactDOM.findDOMNode(this.refs.react3);
     this._camera = this.refs.camera;
-    this._canvas.addEventListener('mouseup', this._mouseUpListener, false);
-    this._controls = new THREE.OrbitControls(this._camera, this._canvas);
+    this._orbitControls = new THREE.OrbitControls(this._camera, this._canvas);
+    if(this.props.forceManualRender === true){
+      this._orbitControls.addEventListener('change', this._orbitControlsHandler, false);
+      this._renderTrigger();
+    }else{
+      this._canvas.addEventListener('mouseup', this._mouseUpListener, false);
+    }
   }
 
   componentWillUnmount(){
-    this._canvas.removeEventListener('mouseup', this._mouseUpListener, false);
+    if(this.props.forceManualRender === true){
+      this._orbitControls.removeEventListener('change', this._orbitControlsHandler, false);
+    }else{
+      this._canvas.removeEventListener('mouseup', this._mouseUpListener, false);
+    }
     this._controls.dispose();
   }
 
@@ -59,6 +69,8 @@ class SceneComponent extends React.Component {
         antialias
         shadowMapEnabled={true}
         clearColor={0xffffff}
+        forceManualRender={this.props.forceManualRender}
+        onManualRenderTriggerCreated={this._onManualRenderTriggerCreated}
       >
         <scene
           ref='scene'
@@ -89,13 +101,18 @@ class SceneComponent extends React.Component {
         </scene>
       </React3>
     );
+    if(this.props.forceManualRender === true){
+      this._renderTrigger();
+    }
+
     return scene;
   }
 }
 
 SceneComponent.propTypes = {
   cameraPosition: React.PropTypes.instanceOf(THREE.Vector3),
-  cameraQuaternion: React.PropTypes.instanceOf(THREE.Quaterion)
+  cameraQuaternion: React.PropTypes.instanceOf(THREE.Quaterion),
+  forceManualRender: React.PropTypes.bool
 };
 
 export default SceneComponent;
